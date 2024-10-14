@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+      xmlns:layout="www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+  <meta charset="UTF-8">
+  <!--  <script src="/js/jquery.js"></script>-->
+</head>
+
+<!--  우리가 작업할 공간 -->
+<body>
+<div layout:fragment="content" class="content">
+  <h1>Content</h1>
+  <input type="button" id="btn" value="눌러요">
+
+  <script>
+    $(document).ready(function(){
+      alert("OK");
+      $("#btn").on("click", function(){
+        alert("TEST");
+      });
+    });
+  </script>
+</div>
+
+</body>
+</html>
