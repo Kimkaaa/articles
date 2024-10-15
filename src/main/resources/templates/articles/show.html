@@ -26,8 +26,8 @@
         </tr>
         </tbody>
     </table>
-    <a href="" class="btn btn-primary">Edit</a>
-    <a href="" class="btn btn-danger">Delete</a>
+    <a th:href="@{/articles/{id}/update(id=${dto.id})}" class="btn btn-primary">Edit</a>
+    <a th:href="@{/articles/{id}/delete(id=${dto.id})}" class="btn btn-danger">Delete</a>
     <a href="/articles">Go to Article List</a>
     <br><br>
     <div class="card m-2">

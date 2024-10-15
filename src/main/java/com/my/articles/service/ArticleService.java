@@ -31,4 +31,16 @@ public class ArticleService {
         if(ObjectUtils.isEmpty(article)) return null;
         return ArticleDTO.fromEntity(article);
     }
+
+    public void deleteArticle(Long id) {
+        dao.deleteArticle(id);
+    }
+
+    public void updateArticle(ArticleDTO dto) {
+        dao.updateArticle(dto);
+    }
+
+    public void insertArticle(ArticleDTO dto) {
+        dao.insertArticle(ArticleDTO.fromDTO(dto));
+    }
 }
