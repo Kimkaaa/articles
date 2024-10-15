@@ -10,17 +10,19 @@
 <!--  우리가 작업할 공간 -->
 <body>
 <div layout:fragment="content" class="content">
-    <form class="container" action="/articles/update" method="post" >
+    <form class="container" action="/articles/update"
+          method="post" th:object="${dto}">
+        <input type="hidden" th:field="*{id}">
         <div class="mb3">
             <label class="form-label">제목</label>
-            <input type="text" class="form-control" name="title">
+            <input type="text" class="form-control" th:field="*{title}" name="title">
         </div>
         <div class="mb-3">
             <label class="form-label">내용</label>
-            <textarea class="form-control" row="3" name="content"></textarea>
+            <textarea class="form-control" row="3" th:field="*{content}" name="content"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="">Go to Article List</a>
+        <a href="/articles">Go to Article List</a>
     </form>
 </div>
 
