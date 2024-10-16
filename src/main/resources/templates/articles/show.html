@@ -31,36 +31,62 @@
     <a href="/articles"><button type="button" class="btn btn-light">Go to Article List</button></a>
     <br><br>
 
-        <div th:each="comment : ${dto.commentList}">
-            <div class="card m-2">
-                <div class="card-header">
-                    <span th:text="${comment.nickname}">닉네임</span>
-                    <a th:href="@{/comments/{id}/update(id=${comment.id})}"
-                       class="btn btn-sm btn-outline-primary">수정</a>
-                    <a th:href="@{/comments/{id}/delete(id=${comment.id}, articleId=${dto.id})}"
-                       class="btn btn-sm btn-outline-primary" id="comment-delete-btn">삭제</a>
-                </div>
-                <div class="card-body">
-                    <p class="card-text" th:text="${comment.body}">댓글 내용</p>
-                </div>
-            </div>
+    <div class="card m-2" th:each="comment : ${dto.commentList}" th:object="${comment}">
+        <div class="card-header">
+            <span th:text="*{nickname}">닉네임</span>
+            <a class="btn btn-sm btn-outline-primary" id="comment-update-btn">수정</a>
+            <a class="btn btn-sm btn-outline-primary" id="comment-delete-btn">삭제</a>
+            <input type="hidden" th:value="*{id}">
         </div>
+        <div class="card-body">
+            <p class="card-text" th:text="*{body}">댓글 내용</p>
+        </div>
+    </div>
 
-    <form>
+    <form th:action="@{/articles/{id}/comments(id=${dto.id})}" method="post">
         <!-- 닉네임 입력-->
         <div class="m-2">
             <label class="form-label">닉네임</label>
-            <input type="text" class="form-control" id="new-comment-nickname">
+            <input type="text" class="form-control"
+                   id="new-comment-nickname" name="nickname">
         </div>
         <!-- 댓글 본문 입력-->
         <div class="m-2">
             <label class="form-label">댓글 내용</label>
-            <textarea type="text" class="form-control" rows="3" id="new-comment-body"></textarea>
+            <textarea type="text" class="form-control" rows="3"
+                      id="new-comment-body" name="body"></textarea>
         </div>
         <!-- 전송버튼-->
         <button type="button" class="btn btn-primary" id="comment-create-btn">댓글 작성</button>
     </form>
-</div>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+         $(document).on("click", "#comment-delete-btn", function(){
+           let commentId = $(this).next().val();
+           location.href = '/articles/comments/' + commentId;
+         });
 
+         $("#comment-create-btn").on("click", function(){
+          event.preventDefault();
+           if($("#new-comment-nickname").val() == ""){
+             alert("닉네임을 입력하세요.");
+             $("#new-comment-nickname").focus();
+             return;
+           }
+          if($("#new-comment-body").val() == ""){
+             alert("내용을 입력하세요.");
+             $("#new-comment-body").focus();
+             return;
+           }
+           $("form").submit();
+         });
+
+        $(document).on("click", "#comment-update-btn", function(){
+            let commentId = $(this).next().next().val();
+            location.href = '/articles/comments/view/' + commentId;
+        });
+       })
+    </script>
+</div>
 </body>
 </html>
