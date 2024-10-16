@@ -28,29 +28,23 @@
     </table>
     <a th:href="@{/articles/{id}/update(id=${dto.id})}" class="btn btn-primary">Edit</a>
     <a th:href="@{/articles/{id}/delete(id=${dto.id})}" class="btn btn-danger">Delete</a>
-    <a href="/articles">Go to Article List</a>
+    <a href="/articles"><button type="button" class="btn btn-light">Go to Article List</button></a>
     <br><br>
-    <div class="card m-2">
-        <div class="card-header">
-            <span>Featured</span>
-            <a class="btn btn-sm btn-outline-primary">수정</a>
-            <a class="btn btn-sm btn-outline-primary" id="comment-delete-btn">삭제</a>
-        </div>
-        <div class="card-body">
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        </div>
-    </div>
 
-    <div class="card m-2">
-        <div class="card-header">
-            <span>Featured</span>
-            <a class="btn btn-sm btn-outline-primary">수정</a>
-            <a class="btn btn-sm btn-outline-primary" id="comment-delete-btn">삭제</a>
+        <div th:each="comment : ${dto.commentList}">
+            <div class="card m-2">
+                <div class="card-header">
+                    <span th:text="${comment.nickname}">닉네임</span>
+                    <a th:href="@{/comments/{id}/update(id=${comment.id})}"
+                       class="btn btn-sm btn-outline-primary">수정</a>
+                    <a th:href="@{/comments/{id}/delete(id=${comment.id}, articleId=${dto.id})}"
+                       class="btn btn-sm btn-outline-primary" id="comment-delete-btn">삭제</a>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" th:text="${comment.body}">댓글 내용</p>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        </div>
-    </div>
 
     <form>
         <!-- 닉네임 입력-->

@@ -3,6 +3,7 @@ package com.my.articles.service;
 import com.my.articles.dao.ArticleDAO;
 import com.my.articles.dto.ArticleDTO;
 import com.my.articles.entity.Article;
+import com.my.articles.entity.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
