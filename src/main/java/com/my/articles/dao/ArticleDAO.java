@@ -19,7 +19,8 @@ public class ArticleDAO {
 
     public List<Article> getAllArticle() {
         String sql = "SELECT a FROM Article a ORDER BY a.id DESC";
-        return em.createQuery(sql).getResultList();
+        List<Article> articles = em.createQuery(sql).getResultList();
+        return articles;
     }
 
     public Article getOneArticle(Long id) {
