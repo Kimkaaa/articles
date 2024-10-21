@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{/js/jquery.js}"></script>
+</head>
+<body>
+  userid : <input type="text" id="userId"><br>
+  password : <input type="text" id="password"><br>
+  <button id="btn_api">Send</button><br>
+  <button id="btn_response">Response</button><br>
+  <button id="btn_array">Array</button><br>
+  <button id="btn_delete">Delete</button><br>
+
+  <script th:inline="javascript">
+      $(document).ready(function(){
+        $("#btn_api").on("click", function(){
+          $.ajax({
+              url : 'apiPostTest',
+              type : 'post',
+              datatype : 'text',
+              headers : {
+                  "Content-Type" : "application/json",
+              },
+              data : JSON.stringify(
+                  {
+                      'userId' : $("#userId").val(),
+                      'password' : $("#password").val(),
+                  }
+              ),
+              success : function(data, status, xhr){
+                  console.log(data)
+              },
+              error : function(data, status, xhr){
+                  console.log(error)
+              }
+          })
+        });
+
+        $("#btn_response").on("click", function(){
+          $.ajax({
+              url : 'getResponse',
+              type : 'post',
+              datatype : 'json',
+              success : function(data, status, xhr){
+                  console.log(data)
+              },
+              error : function(data, status, xhr){
+                  console.log(error)
+              }
+          })
+        });
+
+        $("#btn_array").on("click", function(){
+          let user1 = {
+                      'userId' : $("#userId").val(),
+                      'password' : $("#password").val(),
+                  };
+          let user2 = {
+                      'userId' : 'kim',
+                      'password' : '0000',
+                  };
+          $.ajax({
+              url : 'apiPostArrayTest',
+              type : 'post',
+              datatype : 'json',
+              headers : {
+                  "Content-Type" : "application/json",
+              },
+              data : JSON.stringify([user1, user2]),
+              success : function(data, status, xhr){
+                  console.log(data)
+              },
+              error : function(data, status, xhr){
+                  console.log(error)
+              }
+          })
+        });
+
+        $("#btn_delete").on("click", function(){
+          $.ajax({
+              url : 'delete',
+              type : 'delete',
+              datatype : 'json',
+              success : function(data, status, xhr){
+                  console.log(data)
+              },
+              error : function(data, status, xhr){
+                  console.log(error)
+              }
+          })
+        });
+      })
+  </script>
+</body>
+</html>

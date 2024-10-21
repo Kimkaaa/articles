@@ -35,7 +35,29 @@
               $("#update-comment-body").focus();
               return;
             }
-            $("form").submit();
+         <!-- $("form").submit();-->
+
+           let sendUrl = `/api/comments/[[*{id}]]`;
+
+           let updateComment = {
+             'body' : $("#update-comment-body").val()
+           };
+
+           $.ajax({
+             url : sendUrl,
+             type : "patch",
+             dataType : 'json',
+             data : JSON.stringify(updateComment),
+             headers : {
+              "Content-Type" : "application/json"
+             },
+             success : function(data, status, xhr){
+               alert(data.message);
+               location.href = `/articles/[[${articleId}]]`;
+             },
+             error : function(xhr, status, error){
+             },
+           });
           });
         })
     </script>
