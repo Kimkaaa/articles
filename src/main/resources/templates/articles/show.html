@@ -63,7 +63,23 @@
         $(document).ready(function(){
          $(document).on("click", "#comment-delete-btn", function(){
            let commentId = $(this).next().val();
-           location.href = '/articles/comments/' + commentId;
+           let sendUrl = "/api/comments/" + commentId;
+           console.log(sendUrl);
+
+           $.ajax({
+            url : sendUrl,
+            type : "delete",
+            dataType : 'json',
+            headers : {
+              "Content-Type" : "application/json"
+            },
+            success : function(data, status, xhr){
+              alert(data.message);
+              location.href = `/articles/[[*{id}]]`;
+            },
+            error : function(xhr, status, error){
+            },
+           })
          });
 
          $("#comment-create-btn").on("click", function(){
@@ -78,7 +94,30 @@
              $("#new-comment-body").focus();
              return;
            }
-           $("form").submit();
+         <!-- $("form").submit();-->
+
+           let sendUrl = `/api/articles/[[*{id}]]/comments`;
+
+           let newComment = {
+             'nickname' : $("#new-comment-nickname").val(),
+             'body' : $("#new-comment-body").val()
+           };
+
+           $.ajax({
+             url : sendUrl,
+             type : "post",
+             dataType : 'json',
+             data : JSON.stringify(newComment),
+             headers : {
+              "Content-Type" : "application/json"
+             },
+             success : function(data, status, xhr){
+               alert(data.message);
+               location.href = `/articles/[[*{id}]]`;
+             },
+             error : function(xhr, status, error){
+             },
+           });
          });
 
         $(document).on("click", "#comment-update-btn", function(){
